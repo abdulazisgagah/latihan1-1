@@ -61,7 +61,7 @@ $hasil = mysqli_query($konek, $sql);
                 <td><?=$row["deskripsi"];?></td>
                 <td><?=$row["harga"];?></td>
                 <td><?=$row["gambar"];?></td>
-                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit</a></td>
+                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit Menu</a></td>
                 </tr>
                 <?php }?>
             </tbody>

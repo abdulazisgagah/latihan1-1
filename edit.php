@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
 $kode=$_GET['kode'];
 $query="select * from pizza where id='$kode'";
@@ -68,7 +69,7 @@ $gambar=$row["gambar"];
     <div class="form-group ">
         <label id="inputNama" class="col-sm-2 col-form-label">Deskripsi</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" name="nama" value="<?php echo $deskripsi; ?>">
+            <input type="text" class="form-control" name="des" value="<?php echo $deskripsi; ?>">
         </div>
     </div>
 
@@ -82,7 +83,7 @@ $gambar=$row["gambar"];
     <div class="form-group ">
         <label id="inputNama" class="col-sm-2 col-form-label">Gambar</label>
         <div class="col-sm-10">
-          <input type="file" name="Gambar" value="<?php echo $gambar; ?>">
+          <input type="file" name="gambar" value="<?php echo $gambar; ?>">
         </div>
     </div>
 
@@ -93,28 +94,40 @@ $gambar=$row["gambar"];
       </div>
 
         </form>
+    
+<?php
 
-        <!-- <div class="row">
-            <table class="table table-striped">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Url Gambar</th>
-                <th scope="col">Edit</th>
-                </tr>
-            </thead>
-            <tbody> -->
+$btn=$_POST['btn'];
+if (isset($btn))
+{
+  $kode1=$_GET['kode'];
+  $nama=$_POST["nama"];
+  $kategori=$_POST["kategori"];
+  $deskripsi=$_POST["des"];
+  $harga=$_POST["harga"];
+  $gambar=$_POST["gambar"];
+ $sql="update pizza set nama='$nama',kategori='$kategori',deskripsi='$deskripsi',harga='$harga',gambar='$gambar' where id='$kode1'";
+  $hasil=mysqli_query($konek,$sql);
 
-<!-- 
-        </div> -->
-    </div>
+  if ($hasil){
+    echo "<script language='JavaScript'>
+    (window.alert('data sudah disimpan'))
+       location.href='data.php'
+    </script>";
+  }
+  else
+  {
+    echo "<script language='JavaScript'>
+    (window.alert('data tidak disimpan'))
+      location.href='edit.php'
+    </script>";
+   
+  }
+}
 
+?>
 
-
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
