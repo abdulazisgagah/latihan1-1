@@ -45,7 +45,7 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
                 <th scope="col">Deskripsi</th>
                 <th scope="col">Harga</th>
                 <th scope="col">Url Gambar</th>
-                <th scope="col">Edit</th>
+                <th scope="col">Edit Menu</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +61,7 @@ $hasil = mysqli_query($konek, $sql);
                 <td><?=$row["deskripsi"];?></td>
                 <td><?=$row["harga"];?></td>
                 <td><?=$row["gambar"];?></td>
-                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit Menu</a></td>
+                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit</a></td>
                 </tr>
                 <?php }?>
             </tbody>
