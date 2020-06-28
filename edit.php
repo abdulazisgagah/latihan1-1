@@ -80,10 +80,13 @@ $gambar=$row["gambar"];
         </div>
     </div>
 
+  <form action="exupload.php" method="POST" enctype="multipart/form-data">  
     <div class="form-group ">
         <label id="inputNama" class="col-sm-2 col-form-label">Gambar</label>
         <div class="col-sm-10">
           <input type="file" name="gambar" value="<?php echo $gambar; ?>">
+          <input type="submit" name="gambar" value="upload" class="btn btn-dark">
+  </form>
         </div>
     </div>
 
