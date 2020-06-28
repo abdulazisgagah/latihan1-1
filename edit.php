@@ -1,13 +1,14 @@
 <?php
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
 $kode=$_GET['kode'];
-$query="select * from wpu-hut where id='$kode'";
+$query="select * from pizza where id='$kode'";
 $hsl=mysqli_query($konek,$query);
-$nama=$hsl["nama"];
-$kategori=$hsl["kategori"];
-$deskripsi=$hsl["deskripsi"];
-$harga=$hsl["harga"];
-$gambar=$hsl["gambar"];
+$row = mysqli_fetch_assoc($hsl);
+$nama=$row["nama"];
+$kategori=$row["kategori"];
+$deskripsi=$row["deskripsi"];
+$harga=$row["harga"];
+$gambar=$row["gambar"];
 ?>
 
 <!doctype html>
@@ -23,6 +24,7 @@ $gambar=$hsl["gambar"];
     <title>Pizza HUT</title>
   </head>
   <body>
+  <form class="form-horizontal" method="POST" action=<?php echo "edit.php?kode=$kode"; ?>>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#"><img src="img/logo.png" width="120"></a>
@@ -44,7 +46,55 @@ $gambar=$hsl["gambar"];
             </div>
         </div>
 
-        <div class="row">
+    <div class="form-group ">
+        <label id="inputNama" class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="nama" value="<?php echo $nama; ?>">
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label id="inputNama" class="col-sm-2 col-form-label">kategori</label>
+        <div class="col-sm-10">
+          <select id="inputkategori"class="form-control" name="kategori" value="<?php echo $kategori; ?>">
+          <option>Pizza</option>
+          <option>Pasta</option>
+          <option>nasi</option>
+          <option>minuman</option>
+          </select>
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label id="inputNama" class="col-sm-2 col-form-label">Deskripsi</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="nama" value="<?php echo $deskripsi; ?>">
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label id="inputNama" class="col-sm-2 col-form-label">Harga</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" name="harga" value="<?php echo $harga; ?>">
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <label id="inputNama" class="col-sm-2 col-form-label">Gambar</label>
+        <div class="col-sm-10">
+          <input type="file" name="Gambar" value="<?php echo $gambar; ?>">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+        <button type="submit" class="btn btn-dark" name="btn">Edit</button>
+        </div>
+      </div>
+
+        </form>
+
+        <!-- <div class="row">
             <table class="table table-striped">
             <thead>
                 <tr>
@@ -57,26 +107,10 @@ $gambar=$hsl["gambar"];
                 <th scope="col">Edit</th>
                 </tr>
             </thead>
-            <tbody>
-  <?php
-$sql = "select * from pizza";
-$hasil = mysqli_query($konek, $sql);
-?>
-            <?php while ($row = mysqli_fetch_assoc($hasil)) {?>
-                <tr>
-                <th><?=$row["id"];?></th>
-                <td><?=$row["nama"];?></td>
-                <td><?=$row["kategori"];?></td>
-                <td><?=$row["deskripsi"];?></td>
-                <td><?=$row["harga"];?></td>
-                <td><?=$row["gambar"];?></td>
-                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit</a></td>
-                </tr>
-                <?php }?>
-            </tbody>
-            </table>
+            <tbody> -->
 
-        </div>
+<!-- 
+        </div> -->
     </div>
 
 
