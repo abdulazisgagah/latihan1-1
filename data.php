@@ -64,7 +64,7 @@ $hasil = mysqli_query($konek, $sql);
                 <td><?=$row["harga"];?></td>
                 <td><?=$row["gambar"];?></td>
                 <td><a href='edit.php?kode=<?=$row["id"];?>' class="fa fa-edit" style="color:gold; text-decoration:none;"></a> |
-                <a href='hapus.php?kode=<?=$row["id"];?>' class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
+                <a href='hapus.php?id=<?=$row["id"];?>' class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
                 </td>
                 </tr>
                 <?php }?>

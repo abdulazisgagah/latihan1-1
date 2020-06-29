@@ -1,5 +1,5 @@
 <?php
-include 'script/konek.php';
+include 'konek.php';
 $id = $_GET['id'];
 $query = "select * from pizza where id='$id'";
 $hsl = mysqli_query($konek, $query);
@@ -10,13 +10,13 @@ $hasil = mysqli_query($konek, $qry);
 if ($hasil) {
     echo "<script language='Javascript'>
     (window.alert('Data Sudah Dihapus'))
-    location.href='laporan.php'
+    location.href='data.php'
     </script>";
 
 } else {
     echo "<script language='Javascript'>
     (window.alert('Data Tidak dapat dihapus'))
-    location.href='laporan.php'
+    location.href='data.php'
     </script>";
 
 }
