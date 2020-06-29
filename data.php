@@ -35,6 +35,10 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
         <div class="row mt-3">
             <div class="col">
                 <h1>All Menu</h1>
+                <div class="col-4">
+                    <button class="submit" onclick="window.location= 'insert.php'"><b> Insert Data</b>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="row">
