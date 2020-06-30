@@ -84,11 +84,12 @@ $gambar=$row["gambar"];
     <div class="form-group ">
         <label id="inputNama" class="col-sm-2 col-form-label">Gambar</label>
         <div class="col-sm-10">
-          <input type="file" name="gambar" value="<?php echo $gambar; ?>">
-          <input type="submit" name="gambar" value="upload" class="btn btn-dark">
-  </form>
+        <img src="img/pizza/<?= $gambar; ?>"> 
+          <input type="file" name="gambar"> 
+          <input type="submit" name="upload" value="upload" class="btn btn-dark">
         </div>
     </div>
+  </form>
 
     <div class="row">
         <div class="col-sm-5">
