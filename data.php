@@ -12,6 +12,8 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <title>Pizza HUT</title>
   </head>
   <body>
@@ -33,6 +35,10 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
         <div class="row mt-3">
             <div class="col">
                 <h1>All Menu</h1>
+                <div class="col-4">
+                    <button class="submit" onclick="window.location= 'insert.php'"><b> Insert Data</b>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -45,7 +51,7 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
                 <th scope="col">Deskripsi</th>
                 <th scope="col">Harga</th>
                 <th scope="col">Url Gambar</th>
-                <th scope="col">Edit Menu</th>
+                <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +67,9 @@ $hasil = mysqli_query($konek, $sql);
                 <td><?=$row["deskripsi"];?></td>
                 <td><?=$row["harga"];?></td>
                 <td><?=$row["gambar"];?></td>
-                <td><a href='edit.php?kode=<?=$row["id"];?>' class='btn btn-warning'>Edit</a></td>
+                <td><a href='edit.php?kode=<?=$row["id"];?>' class="fa fa-edit" style="color:gold; text-decoration:none;"></a> |
+                <a href='hapus.php?id=<?=$row["id"];?>' class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
+                </td>
                 </tr>
                 <?php }?>
             </tbody>
