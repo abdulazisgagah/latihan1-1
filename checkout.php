@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
 $id = $_GET['id'];
 $query = "select * from pizza where id='$id'";
@@ -61,65 +62,69 @@ $kategori = $row["kategori"];
                 <h3 class="font-weight-bold "><?= $nama ?></h3>
                 <h6 class="mb-4">Kategori: <?= $kategori ?></h6>
 
-                <h5 class='font-weight-bold mb-3' style="color:tomato;">Rp. <?= $harga ?></h5>
+                <h5 class='font-weight-bold mb-3' style="color:tomato;">Rp.<?= $harga ?></h5>
                 <div class="row mb-4">
-                    <div class="col-md-1 ">
-                        <button class="btn btn-outline-dark font-weight-bold sub">-</button>
-                    </div>
-                    <div class="col-md-1 pl-0 pr-0">
-                        <input type="number" class="form-control text-center" min="1">
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-outline-dark font-weight-bold add">+</button>
-                    </div>
+                    <form action="" method="post">
+                        <div class="col">
+                            <input type="text" name="id" hidden value="<?= $id ?>">
+                            <input type="text" name="nama" hidden value="<?= $nama ?>">
+                            <input type="number" name="harga" hidden value="<?= $harga ?>">
+                            <button type='button' id='sub' class='sub btn btn-outline-danger b'><b>-</b></button>
+                            <input type='text' class="" id='1' value='1' min='1' max='10' name='jumlah'>
+                            <button type='button' id='add' class='add btn btn-outline-success b'><b>+</b></button>
+                        </div>
+                        <button class="btn btn-dark mt-4 ml-1" type="submit" name="btn">Lanjut</button>
+                    </form>
+
                 </div>
-            </div>
-            <!-- <div class="col-1 offset-2" style="margin-right: -45px;">
-                <button class="btn btn-outline-dark">-</button>
-            </div>
-            <div class="col-6">
-                <input type="text" class="form-control" placeholder="0">
-            </div>
-            <div class="col-1 offset 2">
-                <button class="btn btn-outline-dark" style="margin-left: -12px;">+</button>
-            </div>
-            <div class="col-6" style="margin-top:20px;margin-left: 280px;">
-                <fieldset disabled>
-                    <label for="disabledTextInput">Rp. <?= $harga ?></label>
-                </fieldset>
-            </div> -->
 
+
+            </div>
         </div>
-    </div>
-    <!--
-    <img src="img/pizza/<?= $gambar ?>" class="rounded float-left" alt="Gambar Loading"
-        style="margin-top: 40px ; margin-left: 30px;">
-    <div class="col">
-        <button type="button" class="btn btn-outline-success" style="margin-left:520px; margin-top: 50px;">Lanjut
-            Yuk</button>
 
-    </div> -->
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
-    <script>
-        $('.add').click(function() {
-            if ($(this).prev().val() < 10) {
-                $(this).prev().val(+$(this).prev().val() + 1);
-            }
-        });
-        $('.sub').click(function() {
-            if ($(this).next().val() > 1) {
-                if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
-            }
-        });
-    </script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+        </script>
+        <script>
+            $('.add').click(function() {
+                if ($(this).prev().val() < 10) {
+                    $(this).prev().val(+$(this).prev().val() + 1);
+                }
+            });
+            $('.sub').click(function() {
+                if ($(this).next().val() > 1) {
+                    if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+                }
+            });
+        </script>
 </body>
+<?php
+$btn = $_POST['btn'];
+if (isset($btn)) {
+    $nama = $_POST["nama"];
+    $harga = $_POST["harga"];
+    $jumlah = $_POST["jumlah"];
+    $total = $harga * $jumlah;
+    $sql = "INSERT INTO cart (nama,harga,jumlah,total) VALUES ('$nama','$harga','$jumlah','$total')";
+    $hasil = mysqli_query($konek, $sql);
+
+    if ($hasil) {
+        echo "<script language='JavaScript'>
+       location.href='cart.php'
+    </script>";
+    } else {
+        echo "<script language='JavaScript'>
+      location.href='checkout.php'
+    </script>";
+    }
+}
+
+?>
 
 </html>

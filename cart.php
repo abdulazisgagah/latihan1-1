@@ -1,5 +1,14 @@
 <?php
+error_reporting(0);
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
+
+function rupiah($angka)
+{
+
+    $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+    return $hasil_rupiah;
+}
+
 ?>
 
 <!doctype html>
@@ -27,8 +36,6 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="index.php">Home</a>
-                    <a class="nav-item nav-link active" href="data.php">Data</a>
                 </div>
             </div>
         </div>
@@ -36,50 +43,50 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
     <div class="container">
         <div class="row mt-3">
             <div class="col">
-                <h1>All Menu</h1>
-                <div class="col-4">
-                    <button class="submit" onclick="window.location= 'insert.php'"><b> Insert Data</b>
-                    </button>
-                </div>
+                <h1>List Pesanan</h1>
             </div>
         </div>
         <div class="row">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">id</th>
+                        <th scope="col">Gambar</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Deskripsi</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Url Gambar</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Total Harga</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "select * from pizza";
+                    $sql = "SELECT * FROM pizza INNER JOIN cart ON pizza.nama = cart.nama;";
                     $hasil = mysqli_query($konek, $sql);
                     ?>
                     <?php while ($row = mysqli_fetch_assoc($hasil)) { ?>
                         <tr>
-                            <th><?= $row["id"]; ?></th>
+                            <th><img src="img/pizza/<?= $row["gambar"]; ?>" width="40"></th>
                             <td><?= $row["nama"]; ?></td>
-                            <td><?= $row["kategori"]; ?></td>
-                            <td><?= $row["deskripsi"]; ?></td>
-                            <td><?= $row["harga"]; ?></td>
-                            <td><?= $row["gambar"]; ?></td>
-                            <td><a href='edit.php?kode=<?= $row["id"]; ?>' class="fa fa-edit" style="color:gold; text-decoration:none;"></a> |
-                                <a href='hapus.php?id=<?= $row["id"]; ?>' class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
-                            </td>
+                            <td><?= rupiah($row["harga"]); ?></td>
+                            <td><?= $row["jumlah"]; ?></td>
+                            <td><?= rupiah($row["total"]); ?></td>
+
                         </tr>
-                    <?php } ?>
+                    <?php
+                        $total += $row['total'];
+                    } ?>
                 </tbody>
             </table>
-
+            <div class="row">
+                <div class="col">
+                    <h5><?= rupiah($total); ?></h5>
+                </div>
+            </div>
+            <a href="index.php" class="btn btn-danger mx-2">Pesan lagi</a>
+            <a href="pembayaran.php" class="btn btn-success">Bayar</a>
         </div>
-    </div>
 
+
+    </div>
 
 
 
