@@ -5,11 +5,7 @@ $kode=$_GET['kode'];
 $query="select * from pizza where id='$kode'";
 $hsl=mysqli_query($konek,$query);
 $row = mysqli_fetch_assoc($hsl);
-$nama=$row["nama"];
-$kategori=$row["kategori"];
-$deskripsi=$row["deskripsi"];
-$harga=$row["harga"];
-$gambar=$row["gambar"];
+
 ?>
 
 <!doctype html>
@@ -25,7 +21,7 @@ $gambar=$row["gambar"];
     <title>Pizza HUT</title>
   </head>
   <body>
-  <form class="form-horizontal" method="POST" action=<?php echo "insert.php?kode=$kode"; ?>>
+  <form action="" class="form-horizontal" method="POST" enctype="multipart/form-data">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#"><img src="img/logo.png" width="120"></a>
@@ -83,7 +79,7 @@ $gambar=$row["gambar"];
     <div class="form-group ">
         <label id="inputNama" class="col-sm-2 col-form-label">Gambar</label>
         <div class="col-sm-10">
-          <input type="file" name="gambar" value="<?php echo $gambar; ?>">
+          <input type="file" name="gambar" id="gambar">
         </div>
     </div>
 
@@ -105,8 +101,13 @@ if (isset($btn))
   $kategori=$_POST["kategori"];
   $deskripsi=$_POST["des"];
   $harga=$_POST["harga"];
-  $gambar=$_POST["gambar"];
- $sql="INSERT INTO pizza (id,nama,kategori,deskripsi,harga,gambar) VALUES ('$kode1','$nama','$kategori','$deskripsi','$harga','$gambar')";
+  // upload gambar
+	$gambar = upload();
+	if( !$gambar ){ 
+		return false;
+	}
+ 
+  $sql="INSERT INTO pizza (id,nama,kategori,deskripsi,harga,gambar) VALUES ('$kode1','$nama','$kategori','$deskripsi','$harga','$gambar')";
   $hasil=mysqli_query($konek,$sql);
 
   if ($hasil){
@@ -125,6 +126,54 @@ if (isset($btn))
   }
 }
 
+function upload() {
+  $namaFile = $_FILES['gambar']['name'];
+	$ukuranFile = $_FILES['gambar']['size'];
+	$error = $_FILES['gambar']['error'];
+	$tmpName = $_FILES['gambar']['tmp_name'];
+
+	// cek apakah tidak ada gambar yg diupload 
+	if ( $error === 4) {
+		echo "<script>
+				alert('pilih gambar terlebih dahulu');
+			 </script>";
+		return false;
+	}
+	// cek apakah yg diupload gambar
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode('.', $namaFile); // explode yaitu fungsi memecah string menjadi array contoh: bulya.jpg = ['bulya','jpg']
+	$ekstensiGambar = strtolower(end($ekstensiGambar)); // jadi setelah di explode ambil yang terakhir yaitu ekstensinya (jpg,jpeg,png) setelah itu diubah jadi huruf kecil semua
+
+	if( !in_array($ekstensiGambar, $ekstensiGambarValid) )
+	{ // jika bukan dari ekstensi
+	echo "<script>
+		   alert('yang anda upload bukan gambar');
+		  </script>";
+		  return false;
+
+	}
+
+	// cek jika ukurannya terlalu besar
+	if( $ukuranFile > 1000000 ) {
+
+		echo "<script>
+				alert('ukuran terlalu besar');
+		  </script>";
+		  return false;
+
+	}
+
+	// generate nama baru agar tidak tertimpa
+	$namaFileBaru = uniqid();
+	$namaFileBaru .= '.';
+	$namaFileBaru .= $ekstensiGambar; 
+
+	// lolos pengecekan, gambar siap diuopload dan masuk dala folder img
+	move_uploaded_file($tmpName, 'img/pizza/' .$namaFileBaru);
+
+  return $namaFileBaru;
+}
+  
 ?>
 
 </div>
