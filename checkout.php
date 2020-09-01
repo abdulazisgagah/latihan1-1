@@ -1,5 +1,13 @@
 <?php
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
+$id = $_GET['id'];
+$query = "select * from pizza where id='$id'";
+$hsl = mysqli_query($konek, $query);
+$row = mysqli_fetch_assoc($hsl);
+$nama = $row["nama"];
+$harga = $row["harga"];
+$gambar = $row["gambar"];
+$kategori = $row["kategori"];
 ?>
 
 <!doctype html>
@@ -21,6 +29,9 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
             margin-left: 400px;
             margin-top: 50px;
             padding-top: 1.5rem;
+        }
+        .ss{
+
         }
     </style>
     <title>Pizza HUT</title>
@@ -44,19 +55,33 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
     </nav>
     <div class="container">
         <div class="row mt-3">
-            <div class="col">
-                <h1 class="text-center">Checkout</h1>
-                <h3 class="text-center">Beef-Spaghetti</h3>
+            <div class="col-4 offset-5 mb-5">
+                <h1 class="bg-secondary" style="display:inline; color: white; border-radius:10px;">&emsp;Checkout&emsp;</h1>
             </div>
         </div>
         <div class="row mt-6 ">
-            <div class="col-1 offset-2" style="margin-right: -45px;">
+            <div class="col-4">
+            <img src="img/pizza/<?=$gambar?>" class="img-thumbnail" width="300px" >
+            </div>
+            <div class="col-8">
+                <h3 class="font-weight-bold "><?=$nama?></h3>
+                <h6 class="mb-4">Kategori: <?=$kategori?></h6>
+
+            <h5 class='font-weight-bold mb-3' style="color:tomato;">Rp. <?=$harga?></h5>
+            <div class="row mb-4">
+                    <div class="col-md-1 " >
+                        <button class="btn btn-outline-dark font-weight-bold sub">-</button>
+                    </div>
+                    <div class="col-md-1 pl-0 pr-0" >
+                        <input type="number" class="form-control text-center" min="1" >
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-dark font-weight-bold add">+</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-1 offset-2" style="margin-right: -45px;">
                 <button class="btn btn-outline-dark">-</button>
-                <!-- <button type="button " class="btn btn-secondary active text-center"
-                    style="height: max-content;">-</button>
-                <input type="text" class="form-control" placeholder="0" style="width: min-content;"></input>
-                <button type="button " class="btn btn-secondary active text-center"
-                    style="height: max-content;">+</button> -->
             </div>
             <div class="col-6">
                 <input type="text" class="form-control" placeholder="0">
@@ -66,19 +91,20 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
             </div>
             <div class="col-6" style="margin-left: 240px;">
                 <fieldset disabled>
-                    <label for="disabledTextInput">Jumlah Bayar (Rupiah)</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                    <label for="disabledTextInput">Rp. <?=$harga?></label>
                 </fieldset>
-            </div>
+            </div> -->
+
         </div>
     </div>
-    <img src="img/pizza/beef-spaghetti.jpg" class="rounded float-left" alt="Gambar Loading"
+<!--
+    <img src="img/pizza/<?=$gambar?>" class="rounded float-left" alt="Gambar Loading"
         style="margin-top: 40px ; margin-left: 30px;">
     <div class="col">
         <button type="button" class="btn btn-outline-success" style="margin-left: 480px; margin-top: 50px;">Lanjut
             Yuk</button>
 
-    </div>
+    </div> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -91,6 +117,18 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
     </script>
+    <script>
+        $('.add').click(function () {
+        if ($(this).prev().val() < 10) {
+            $(this).prev().val(+$(this).prev().val() + 1);
+        }
+        });
+        $('.sub').click(function () {
+        if ($(this).next().val() > 1) {
+            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+        }
+        });
+</script>
 </body>
 
 </html>
