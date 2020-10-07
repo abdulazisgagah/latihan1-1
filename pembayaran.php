@@ -1,7 +1,9 @@
 <?php
 error_reporting(0);
 $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
-
+$totalpembayaran = $_GET['total'];
+$qry = "delete from cart";
+mysqli_query($konek, $qry);
 function rupiah($angka)
 {
 
@@ -47,43 +49,31 @@ function rupiah($angka)
             </div>
         </div>
         <div class="row">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Gambar</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Harga</th>
-                        <th scope="col">Jumlah</th>
-                        <th scope="col">Total Harga</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql = "SELECT * FROM pizza INNER JOIN cart ON pizza.nama = cart.nama;";
-                    $hasil = mysqli_query($konek, $sql);
-                    ?>
-                    <?php while ($row = mysqli_fetch_assoc($hasil)) { ?>
-                        <tr>
-                            <th><img src="img/pizza/<?= $row["gambar"]; ?>" width="40"></th>
-                            <td><?= $row["nama"]; ?></td>
-                            <td><?= rupiah($row["harga"]); ?></td>
-                            <td><?= $row["jumlah"]; ?></td>
-                            <td><?= rupiah($row["total"]); ?></td>
-
-                        </tr>
-                    <?php
-                        $total += $row['total'];
-                    } ?>
-                </tbody>
-            </table>
+            <h4>Pesanan anda telah di proses sialhkan klik tombol selesai untuk mencetak bill</h4>
         </div>
-        <div class="row">
-            <div class="col-4 offset-8">
-                <h4>Total Pembayaran : <?= rupiah($total); ?></h4>
-            </div>
-            <div class="col-12">
-                <a href="index.php" class="btn btn-danger mx-2">Pesan lagi</a>
-                <a href="pembayaran.php/total=<?= $total ?>" class="btn btn-success">Bayar</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Selesai
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pizza HOT</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Silahkan Melakukan Pembayaran dan mengambil pesanan di kasir <br>
+                        Terima Kasih
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" href="http://localhost/latihan1-1/">Tutup</a>
+                    </div>
+                </div>
             </div>
         </div>
 

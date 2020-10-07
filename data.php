@@ -45,36 +45,6 @@ $konek = mysqli_connect("localhost", "root", "", "wpu-hut");
         </div>
         <div class="row">
             <table class="table table-striped">
-<<<<<<< HEAD
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Kategori</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">Harga</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-  <?php
-$sql = "select * from pizza";
-$hasil = mysqli_query($konek, $sql);
-?>
-            <?php while ($row = mysqli_fetch_assoc($hasil)) {?>
-                <tr>
-                <th><?=$row["id"];?></th>
-                <td><?=$row["nama"];?></td>
-                <td><?=$row["kategori"];?></td>
-                <td><?=$row["deskripsi"];?></td>
-                <td><?=$row["harga"];?></td>
-                <td><a href='edit.php?kode=<?=$row["id"];?>' class="fa fa-edit" style="color:gold; text-decoration:none;"></a> |
-                <a href="hapus.php?id=<?=$row["id"];?>" onclick="return confirm('yakin mau dihapus ?');" class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
-                </td>
-                </tr>
-                <?php }?>
-            </tbody>
-=======
                 <thead>
                     <tr>
                         <th scope="col">id</th>
@@ -82,7 +52,6 @@ $hasil = mysqli_query($konek, $sql);
                         <th scope="col">Kategori</th>
                         <th scope="col">Deskripsi</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Url Gambar</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -98,14 +67,12 @@ $hasil = mysqli_query($konek, $sql);
                             <td><?= $row["kategori"]; ?></td>
                             <td><?= $row["deskripsi"]; ?></td>
                             <td><?= $row["harga"]; ?></td>
-                            <td><?= $row["gambar"]; ?></td>
                             <td><a href='edit.php?kode=<?= $row["id"]; ?>' class="fa fa-edit" style="color:gold; text-decoration:none;"></a> |
-                                <a href='hapus.php?id=<?= $row["id"]; ?>' class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
+                                <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('yakin mau dihapus ?');" class="fa fa-trash" style="color:tomato; text-decoration:none;"></a>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
->>>>>>> c2dd3b9e65d80a251f914732a3fbfb1eb9f36f63
             </table>
 
         </div>
